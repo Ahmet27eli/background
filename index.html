@@ -7,7 +7,6 @@
             margin: 0; padding: 0;
             background: #000 url('background.png') no-repeat center center fixed; 
             background-size: cover;
-            /* İstediğin o şık ve ince font */
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             overflow: hidden; color: white;
             display: flex; justify-content: center; align-items: center;
@@ -22,35 +21,46 @@
 
         .main-container {
             position: relative; z-index: 2; text-align: center;
-            margin-top: 750px; /* Logonun altına gelmesi için */
+            /* DEĞİŞEN YER: İstediğin gibi tam olarak 750 piksel aşağı kaydırıldı */
+            margin-top: 750px; 
         }
 
-        /* Bloom Efektli Parlayan Yazı */
+        /* Kırmızı Bloom Efektli Parlayan Yazı */
         #status {
             font-size: 28px; 
-            font-weight: 200; /* İnce ve elit görünüm */
+            font-weight: 200; 
             letter-spacing: 8px; 
             color: #ff0000;
             text-transform: uppercase;
-            /* Kırmızı Bloom (Parlama) Efekti */
             text-shadow: 0 0 10px #ff0000, 0 0 20px #800000, 0 0 30px #000;
-            animation: pulse 2s infinite ease-in-out;
+            animation: pulse-red 2s infinite ease-in-out;
         }
 
-        /* Alttaki küçük bilgilendirme yazısı */
+        /* DEĞİŞEN YER: Altın Sarısı Bloom Efektli Yazı */
         #sub-text {
-            margin-top: 10px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 4px;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #ffd700; /* Altın Sarısı */
+            letter-spacing: 6px;
             text-transform: uppercase;
+            /* Altın Sarısı Bloom (Parlama) Efekti */
+            text-shadow: 0 0 10px #ffd700, 0 0 20px #ff8c00, 0 0 30px #000;
+            animation: pulse-gold 2s infinite ease-in-out;
         }
 
-        /* Hafif nefes alma animasyonu (Parlama için) */
-        @keyframes pulse {
+        /* Kırmızı yazı için nefes alma animasyonu */
+        @keyframes pulse-red {
             0% { opacity: 0.8; text-shadow: 0 0 10px #ff0000; }
             50% { opacity: 1; text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000; }
             100% { opacity: 0.8; text-shadow: 0 0 10px #ff0000; }
+        }
+
+        /* Altın sarısı yazı için nefes alma animasyonu */
+        @keyframes pulse-gold {
+            0% { opacity: 0.8; text-shadow: 0 0 10px #ffd700; }
+            50% { opacity: 1; text-shadow: 0 0 20px #ffd700, 0 0 40px #ff8c00; }
+            100% { opacity: 0.8; text-shadow: 0 0 10px #ffd700; }
         }
     </style>
 </head>
@@ -58,9 +68,7 @@
     <div class="overlay"></div>
     
     <div class="main-container">
-        <!-- Parlayan Ana Yazı -->
         <div id="status">SUNUCUYA BAĞLANILIYOR</div>
-        <!-- Alttaki Sabit Yazı -->
         <div id="sub-text">BASO NETWORK - CITY ROLEPLAY</div>
     </div>
 
@@ -68,19 +76,13 @@
         var dots = 0;
         var baseText = "SUNUCUYA BAĞLANILIYOR";
 
-        // Noktaların loopta dönmesi için (Bağlanılıyor., .., ...)
         setInterval(function() {
             dots++;
             if (dots > 3) dots = 0;
             document.getElementById('status').innerHTML = baseText + ".".repeat(dots);
         }, 600);
 
-        // GMOD'dan gelen teknik yazıları (Lua started vs.) 
-        // ana parlayan yazının altında küçükçe göstermek istersen:
-        function SetStatusChanged(status) {
-            // Eğer istersen teknik detaylar sub-text kısmında akabilir
-            // document.getElementById('sub-text').innerHTML = status;
-        }
+        function SetStatusChanged(status) {}
     </script>
 </body>
 </html>
